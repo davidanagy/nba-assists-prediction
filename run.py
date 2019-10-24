@@ -7,7 +7,7 @@ from dash.dependencies import Input, Output
 
 # Imports from this application
 from app import app, server
-from pages import index, predictions, insights, process
+from pages import index, predictions, creations, insights, process
 
 """
 https://dash-bootstrap-components.opensource.faculty.ai/l/components/navbar
@@ -26,17 +26,18 @@ sticky (string, optional): Stick the navbar to the top or the bottom of the view
 """
 
 navbar = dbc.NavbarSimple(
-    brand='YOUR APP NAME',
+    brand="Predicting NBA Assists",
     brand_href='/', 
     children=[
-        dbc.NavItem(dcc.Link('Predictions', href='/predictions', className='nav-link')), 
+        dbc.NavItem(dcc.Link('Predictions', href='/predictions', className='nav-link')),
+        dbc.NavItem(dcc.Link('Create-a-Player', href='/creations', className='nav-link')), 
         dbc.NavItem(dcc.Link('Insights', href='/insights', className='nav-link')), 
         dbc.NavItem(dcc.Link('Process', href='/process', className='nav-link')), 
     ],
     sticky='top',
-    color='light', 
-    light=True, 
-    dark=False
+    color='primary', 
+    light=False, 
+    dark=True
 )
 
 footer = dbc.Container(
@@ -44,17 +45,24 @@ footer = dbc.Container(
         dbc.Col(
             html.P(
                 [
-                    html.Span('Your Name', className='mr-2'), 
-                    html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:<you>@<provider>.com'), 
-                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/<you>/<repo>'), 
-                    html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/<you>/'), 
-                    html.A(html.I(className='fab fa-twitter-square mr-1'), href='https://twitter.com/<you>'), 
+                    html.Span('David Nagy', className='mr-2'), 
+                    html.A(html.I(className='fas fa-envelope-square mr-1'), href='mailto:davidanagy@gmail.com'), 
+                    html.A(html.I(className='fab fa-github-square mr-1'), href='https://github.com/davidanagy/nba-assists-prediction'), 
+                    html.A(html.I(className='fab fa-linkedin mr-1'), href='https://www.linkedin.com/in/david-nagy-771a3a71/'), 
+                    html.A(html.I(className='fab fa-twitter-square mr-1'), href='https://twitter.com/davidanagyds'), 
                 ], 
                 className='lead'
             )
         )
     )
 )
+
+external_stylesheets = [
+    dbc.themes.UNITED, # United theme
+    'https://use.fontawesome.com/releases/v5.9.0/css/all.css', # for social media icons
+]
+
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # For more explanation, see: 
 # Plotly Dash User Guide, URL Routing and Multiple Apps
@@ -75,6 +83,8 @@ def display_page(pathname):
         return index.layout
     elif pathname == '/predictions':
         return predictions.layout
+    elif pathname == '/creations':
+        return creations.layout
     elif pathname == '/insights':
         return insights.layout
     elif pathname == '/process':

@@ -29,17 +29,32 @@ column1 = dbc.Col(
         dcc.Markdown(
             """
         
-            ## Value Proposition
+            ## Predict NBA assists!
 
-            Emphasize how the app will benefit users. Don't emphasize the underlying technology.
+            Who's your favorite NBA player? Is he a selfish scorer, only looking to pad his numbers? Or a willing distributor who wants all his teammates to succeed? Or...both!?
 
-            ✅ RUN is a running app that adapts to your fitness levels and designs personalized workouts to help you improve your running.
+            Based on the prior performance of each player and his teammates, we can predict how many assists per game he'll have this year.
 
-            ❌ RUN is the only intelligent running app that uses sophisticated deep neural net machine learning to make your run smarter because we believe in ML driven workouts.
+            Find out how selfish your player will be this season--and why!
 
             """
         ),
-        dcc.Link(dbc.Button('Call To Action', color='primary'), href='/predictions')
+        dcc.Link(dbc.Button('Predict!', color='primary'), href='/predictions'),
+
+        dcc.Markdown(
+            """
+
+            ## Create your own player!
+
+            Want to see how a player would do if he joined a different team?
+
+            Or do you want to build your own cyborg player, with all their stats and parameters tuned to perfection?
+
+            Either way, let's see whether your new robot will be a ball hog or a generous spirit!
+
+            """
+        ),
+        dcc.Link(dbc.Button('Create!', color='primary'), href='/creations')
     ],
     md=4,
 )
