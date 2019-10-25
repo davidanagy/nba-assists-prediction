@@ -54,7 +54,7 @@ column1 = dbc.Col(
 
 column2 = dbc.Col(
     [
-        html.Img(src='assets/perm-importances.png', className='img-fluid'),
+        html.Img(src='assets/perm-importances.PNG', className='img-fluid'),
         html.Img(src='assets/pts-adj-vs-target.png', className='img-fluid'),
         html.Img(src='assets/ast-adj-vs-target.png', className='img-fluid'),
         html.Img(src='assets/cas-vs-target.png', className='img-fluid'),
