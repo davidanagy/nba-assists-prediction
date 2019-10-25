@@ -11,6 +11,11 @@ dash-bootstrap-components = "*"
 gunicorn = "*"
 plotly = "*"
 pandas = "*"
+matplotlib = "*"
+seaborn = "*"
+category-encoders = "*"
+sklearn = "*"
+sklearn-linear-models = "*"
 
 [requires]
 python_version = "3"

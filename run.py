@@ -62,8 +62,6 @@ external_stylesheets = [
     'https://use.fontawesome.com/releases/v5.9.0/css/all.css', # for social media icons
 ]
 
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
-
 # For more explanation, see: 
 # Plotly Dash User Guide, URL Routing and Multiple Apps
 # https://dash.plot.ly/urls
