@@ -30,6 +30,8 @@ test['preds'] = y_pred
 test2 = X_test_encoded.copy()
 test2['Player'] = test['Player']
 
+imp_stats = ['PTS_adj', 'AST_adj', 'CAS', 'AST']
+
 options = []
 for i in range(len(test)):
     d = {}
@@ -40,9 +42,7 @@ for i in range(len(test)):
 column1 = dbc.Col(
     [
         dcc.Markdown('## Choose a player!', className='mb-5'),
-        dcc.Dropdown(id='player', value='LeBron James', options=options),
-        dbc.Button('Predict!', id='button', n_clicks=1, color='primary',
-                  style=dict(marginTop=1.75, marginBottom=10))
+        dcc.Dropdown(id='player', value='LeBron James', options=options)
     ],
     md=4,
 )
@@ -58,22 +58,37 @@ row1 = dbc.Row([column1, column2])
 
 row2 = dbc.Row(
     [
-        html.H2('Major stats:', className='mb-5'),
-        html.Div(id='imp_stats')
+        html.H2('Major stats:', className='mb-6'),
     ]
 )
 
-@app.callback(
-    [Output('assists', 'children')],
-    [Input('button', 'n_clicks')],
-    [State('player', 'value')]
+row3 = dbc.Row(
+    [html.Div(id='imp_stats', className='mb-3')]
 )
-def predict(clicked, name):
-    if clicked:
-        for i in range(len(test)):
-            if test.loc[i, 'Player'] == name:
-                assist_pred = test.loc[i, 'preds']
-                return [assist_pred]
-                break
 
-layout = dbc.Row([column1, column2])
+row4 = dbc.Row(
+    [dcc.Markdown(
+        """
+
+        You can find my full predictions [here](https://github.com/davidanagy/nba-assists-prediction/blob/master/csvs/final-predictions.csv).
+        (Look for the "preds" column.)
+
+        """
+    )]
+)
+
+@app.callback(
+    [Output('assists', 'children'),
+     Output('imp_stats', 'children')],
+    [Input('player', 'value')]
+)
+def predict(name):
+    for i in range(len(test)):
+        if test.loc[i, 'Player'] == name:
+            assist_pred = test.loc[i, 'preds']
+            imp_nums = []
+            for stat in imp_stats:
+                imp_nums.append(test.loc[i, stat])
+    return f'{assist_pred:.1f} assists per game', f'Points adjusted by minutes played: {imp_nums[0]}; Assists adjusted by minutes played: {imp_nums[1]}; Career assists: {imp_nums[2]}; Assists: {imp_nums[3]}'
+
+layout = dbc.Col([row1, row2, row3, row4])

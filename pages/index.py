@@ -39,22 +39,7 @@ column1 = dbc.Col(
 
             """
         ),
-        dcc.Link(dbc.Button('Predict!', color='primary'), href='/predictions'),
-
-        dcc.Markdown(
-            """
-
-            ## Create your own player!
-
-            Want to see how a player would do if he joined a different team?
-
-            Or do you want to build your own cyborg player, with all their stats and parameters tuned to perfection?
-
-            Either way, let's see whether your new robot will be a ball hog or a generous spirit!
-
-            """
-        ),
-        dcc.Link(dbc.Button('Create!', color='primary'), href='/creations')
+        dcc.Link(dbc.Button('Predict!', color='primary'), href='/predictions')
     ],
     md=4,
 )
@@ -63,10 +48,6 @@ gapminder = px.data.gapminder()
 fig = px.scatter(gapminder.query("year==2007"), x="gdpPercap", y="lifeExp", size="pop", color="continent",
            hover_name="country", log_x=True, size_max=60)
 
-column2 = dbc.Col(
-    [
-        dcc.Graph(figure=fig),
-    ]
-)
+column2 = dbc.Col([html.Img(src='assets/front.jpg', className='img-fluid')])
 
 layout = dbc.Row([column1, column2])
