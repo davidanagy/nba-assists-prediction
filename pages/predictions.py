@@ -7,7 +7,7 @@ import pandas as pd
 
 from app import app
 
-df = pd.read_csv('assist-predictions.csv')
+df = pd.read_csv('csvs/assist-predictions.csv')
 
 options = []
 for i in range(len(df)):
